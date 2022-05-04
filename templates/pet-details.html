@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}{{pet.name}}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="display-1 text-center">{{pet.name}}</h1>
+    <div class="row justify-content-center">
+        <div class="col-sm-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{pet.photo_url}}" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">Name: {{pet.name}}</h5>
+                  <p class="card-text">Species: {{pet.species}}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Age: 
+                      {% if pet.age %}
+                      {{pet.age}}
+                      {% else %}
+                      Not Available
+                      {% endif %}
+                  </li>
+                  <li class="list-group-item">Notes: 
+                    {% if pet.notes %}
+                    {{pet.notes}}
+                    {% else %}
+                    Not Available
+                    {% endif %}
+                </li>
+                  <li class="list-group-item">Adoption Status:
+                    {% if pet.available %}
+                    <b>Available</b>
+                    {% else %}
+                    <b>Not Available</b>
+                    {% endif %}
+                  </li>
+                </ul>
+                <!-- <div class="card-body">
+                  <a href="/" class="card-link">Back to all pets</a>
+                </div> -->
+              </div>
+            
+              <h3 class="display-6 text-center">Edit {{pet.name}}</h3>
+              <form method="POST">
+                {{ form.hidden_tag() }}
+      
+                {% for field in form if field.widget.input_type != 'hidden'%}
+                <div class="form-group">
+                  {{field.label}}
+                  {{field(class_="form-control")}}
+                  {% for err in field.errors %}
+                  <small class="form-text text-danger">
+                    {{err}}
+                  </small>
+                  {% endfor %}
+                </div>
+                {% endfor %}
+                <button class="btn  btn-success">Update</button>
+                <a href="/" class="btn btn-danger">Go back to all pets</a>
+              </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 

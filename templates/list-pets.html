@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}All Pets{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="display-1 text-center">All Pets</h1>
+    <div class="row justify-content-center">
+        <div class="col-sm-4">
+            {% for pet in pets %}
+            <div class="card text-center" style="width: 18rem;">
+                <img class="card-img-top" src="{{pet.photo_url}}" alt="Card image cap">
+                <div class="card-body">
+                  <p class="card-text"><a href="/{{pet.id}}">{{pet.name}}</a> is
+                    {% if pet.available %}
+                    <b>Available</b>
+                    {% else %}
+                    <b>Not Available</b>
+                    {% endif %}</p>
+                </div>
+              </div>
+            {% endfor %}
+            <form>
+                <button formaction="/add" formmethod="GET" class="btn btn-success">Add Pet
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
